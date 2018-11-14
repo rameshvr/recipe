@@ -1,0 +1,8 @@
+{
+    "name": "star-gazer",
+    "alias":"star-gazer",
+    "version":1,
+    "engines":{
+        "node":"latest"
+    }
+}
