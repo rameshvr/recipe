@@ -11,14 +11,14 @@ app.get("/", (request, response) => {
 });
 app.post("/", (request, response) => {
   console.log(request.body.queryResult.parameters);
-  const { ingredients } = request.body.queryResult.parameters;
-  axios(`http://www.recipepuppy.com/api/?i=${ingredients}`)
+  const { ingredient } = request.body.queryResult.parameters;
+  axios(`http://www.recipepuppy.com/api/?i=${ingredient}`)
     .then(res => {
       console.log(res);
 
       const { results } = res.data;
       response.json({
-        fulfillmentText: `with ${ingredients} you can prepare below meals.`,
+        fulfillmentText: `With ${ingredient} you can prepare below meals.`,
         // fulfillmentMessages: [
         //   {
         //     card: {
@@ -35,11 +35,10 @@ app.post("/", (request, response) => {
         //   }
         // ],
         fulfillmentMessages: results.map(result => {
-          const { title, ingredients } = result;
+          const { title } = result;
           return {
             card: {
-              title,
-              ingredients
+              title
             }
           };
         }),
@@ -51,7 +50,7 @@ app.post("/", (request, response) => {
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: `with ${ingredients} you can prepare below meals.`
+                    textToSpeech: `With ${ingredient} you can prepare below meals.`
                   }
                 }
               ]
