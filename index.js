@@ -17,43 +17,53 @@ app.post("/", (request, response) => {
       console.log(res);
 
       const { results } = res.data;
+      const fullfilCards = results.map(result => {
+        const { title, ingredients } = result;
+        return {
+          card: {
+            title,
+            subtitle: ingredients
+          }
+        };
+      });
+
+      const RecipeCards = results.map(result => {
+        const { title, ingredients, href, thumbnail } = result;
+        return {
+          title,
+          description: ingredients,
+          image: {
+            url: thumbnail.replace("http", "https"),
+            accessibilityText: title
+          },
+          openUrlAction: {
+            url: href.replace("http", "https")
+          }
+        };
+      });
+
+      const googleCards = [
+        {
+          simpleResponse: {
+            textToSpeech: `With ${ingredient} you can prepare below meals.`
+          }
+        },
+        {
+          carouselBrowse: {
+            items: RecipeCards
+          }
+        }
+      ];
+
       response.json({
         fulfillmentText: `With ${ingredient} you can prepare below meals.`,
-        // fulfillmentMessages: [
-        //   {
-        //     card: {
-        //       title: `${repository} (${stargazers_count})`,
-        //       subtitle: `${description}`,
-        //       imageUri: avatar_url,
-        //       buttons: [
-        //         {
-        //           text: `${repository}`,
-        //           postback: `${html_url}`
-        //         }
-        //       ]
-        //     }
-        //   }
-        // ],
-        fulfillmentMessages: results.map(result => {
-          const { title } = result;
-          return {
-            card: {
-              title
-            }
-          };
-        }),
-        source: "github",
+        fulfillmentMessages: fullfilCards,
+        source: "",
         payload: {
           google: {
-            expectUserResponse: false,
+            expectUserResponse: true,
             richResponse: {
-              items: [
-                {
-                  simpleResponse: {
-                    textToSpeech: `With ${ingredient} you can prepare below meals.`
-                  }
-                }
-              ]
+              items: googleCards
             }
           }
         }
