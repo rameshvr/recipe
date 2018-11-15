@@ -1,8 +1,8 @@
 {
-    "name": "star-gazer",
-    "alias":"star-gazer",
-    "version":1,
-    "engines":{
-        "node":"latest"
-    }
+  "name": "recipe-finder",
+  "alias": "recipe-finder",
+  "version": 1,
+  "engines": {
+    "node": "latest"
+  }
 }
