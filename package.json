@@ -9,7 +9,7 @@
   "author": "Sunil Hari",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "express": "^4.16.4",
     "now-cli": "^0.0.0"
   },
