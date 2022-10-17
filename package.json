@@ -9,7 +9,7 @@
   "author": "Ramesh Rajagopal",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.23.0",
+    "axios": "^1.1.3",
     "express": "^4.17.1",
     "now-cli": "^0.0.0"
   },
